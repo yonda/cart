@@ -41,6 +41,11 @@ header {
     position: relative;
     transform: translate3d(0, 0, 0);
 }
+.setting {
+  width: 150px;
+  margin: 0 auto;
+  font-size: 15px;
+}
 .cart{
   display: table;
   width: 75px;
@@ -193,8 +198,6 @@ footer {
     transform: translate3d(0, 0, 0);
 }
 
-
-
 @media only screen and (max-width: 959px) {
 
   html, body {
@@ -216,7 +219,6 @@ footer {
   footer {
     margin-top: 60px;
   }
-
 }
 </style>
 <script>document.createElement("main");</script>
@@ -227,6 +229,9 @@ footer {
   <header>
       <h1>カートイン！！</h1>
   </header>
+  <div class="setting">
+    <input type="checkbox" name="is_speed_random" value="random"> 速度ランダム
+  </div>
   <nav>
     <p class="cart"><a class="cart__button" href="#"><svg class="cart__icon" viewBox="0 0 512 512">
       <path d="M179.7,388.5c-24.8,0-45,20.2-45,45c0,24.8,20.2,45,45,45s45-20.2,45-45C224.7,408.7,204.5,388.5,179.7,388.5z
@@ -276,8 +281,14 @@ $(function() {
     targetPos.left = targetPos.left + $target.width() / 2;
     buttonPos.left = buttonPos.left + $self.width() / 2;
 
-    var G = 10, //重力[px/s^2]
-        v = 0, //初速[px/s]
+    var G = 20
+
+    if (document.getElementsByName("is_speed_random")[0].checked) {
+      var arr = [2, 20, 20, 500]
+      G = arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    var v = 0, //初速[px/s]
         H = buttonPos.top - targetPos.top, //高度[px]
         S = targetPos.left - buttonPos.left; //距離[px]
 
